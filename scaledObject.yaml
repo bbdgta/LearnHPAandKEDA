@@ -1,0 +1,16 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: queue-worker-scaledobject
+spec:
+  scaleTargetRef:
+    name: queue-worker
+  minReplicaCount: 0
+  maxReplicaCount: 5
+  triggers:
+  - type: azure-queue
+    metadata:
+      queueName: testqueue
+      queueLength: "5"
+    authenticationRef:
+      name: azure-queue-auth
